@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using RunGroopWebApp.Data;
 using RunGroopWebApp.Interfaces;
 using RunGroopWebApp.Models;
@@ -41,6 +42,16 @@ namespace RunGroopWebApp.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(Club club)
+        {
+            if(!ModelState.IsValid) 
+            {
+                return View(club);
+            }
+             _clubRepository.Add(club);
+            return RedirectToAction("Index");
         }
     }
 }
